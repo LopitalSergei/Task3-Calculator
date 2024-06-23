@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
 * {
 	padding: 0;
 	margin: 0;
@@ -87,3 +89,235 @@ h6 {
 }
 
 /*--------------------*/
+body {
+	font-family: "Open Sans";
+	font-size: 48px;
+	background: #fcfcfc;
+}
+
+body button {
+	font-size: inherit;
+}
+
+#userInput {
+	width: 100%;
+	font-size: 64px;
+	border: 2px solid #000;
+	text-align: right;
+	direction: ltr;
+	padding: 5px 15px;
+}
+
+.container {
+	width: 95%;
+	height: 100vh;
+	margin: auto;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.calculator {
+	background-color: #f2f2f2;
+	-webkit-box-shadow: 0px 2px 6px 3px black;
+	box-shadow: 0px 2px 6px 3px black;
+	padding: 15px;
+	width: 400px;
+	height: 550px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.buttons {
+	height: 100%;
+	display: -ms-grid;
+	display: grid;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	gap: 10px;
+	-ms-grid-columns: 1fr 10px 1fr 10px 1fr 10px 1fr;
+	grid-template-columns: repeat(4, 1fr);
+	-ms-grid-rows: 1fr 10px 1fr 10px 1fr 10px 1fr 10px 1fr;
+	grid-template-rows: repeat(5, 1fr);
+}
+
+.buttons>*:nth-child(1) {
+	-ms-grid-row: 1;
+	-ms-grid-column: 1;
+}
+
+.buttons>*:nth-child(2) {
+	-ms-grid-row: 1;
+	-ms-grid-column: 3;
+}
+
+.buttons>*:nth-child(3) {
+	-ms-grid-row: 1;
+	-ms-grid-column: 5;
+}
+
+.buttons>*:nth-child(4) {
+	-ms-grid-row: 1;
+	-ms-grid-column: 7;
+}
+
+.buttons>*:nth-child(5) {
+	-ms-grid-row: 3;
+	-ms-grid-column: 1;
+}
+
+.buttons>*:nth-child(6) {
+	-ms-grid-row: 3;
+	-ms-grid-column: 3;
+}
+
+.buttons>*:nth-child(7) {
+	-ms-grid-row: 3;
+	-ms-grid-column: 5;
+}
+
+.buttons>*:nth-child(8) {
+	-ms-grid-row: 3;
+	-ms-grid-column: 7;
+}
+
+.buttons>*:nth-child(9) {
+	-ms-grid-row: 5;
+	-ms-grid-column: 1;
+}
+
+.buttons>*:nth-child(10) {
+	-ms-grid-row: 5;
+	-ms-grid-column: 3;
+}
+
+.buttons>*:nth-child(11) {
+	-ms-grid-row: 5;
+	-ms-grid-column: 5;
+}
+
+.buttons>*:nth-child(12) {
+	-ms-grid-row: 5;
+	-ms-grid-column: 7;
+}
+
+.buttons>*:nth-child(13) {
+	-ms-grid-row: 7;
+	-ms-grid-column: 1;
+}
+
+.buttons>*:nth-child(14) {
+	-ms-grid-row: 7;
+	-ms-grid-column: 3;
+}
+
+.buttons>*:nth-child(15) {
+	-ms-grid-row: 7;
+	-ms-grid-column: 5;
+}
+
+.buttons>*:nth-child(16) {
+	-ms-grid-row: 7;
+	-ms-grid-column: 7;
+}
+
+.buttons>*:nth-child(17) {
+	-ms-grid-row: 9;
+	-ms-grid-column: 1;
+}
+
+.buttons>*:nth-child(18) {
+	-ms-grid-row: 9;
+	-ms-grid-column: 3;
+}
+
+.buttons>*:nth-child(19) {
+	-ms-grid-row: 9;
+	-ms-grid-column: 5;
+}
+
+.buttons>*:nth-child(20) {
+	-ms-grid-row: 9;
+	-ms-grid-column: 7;
+}
+
+.btn {
+	border: 1px solid #000;
+	border-radius: 10px;
+	background-color: #fcfcfc;
+}
+
+.btn:hover {
+	background-color: #dfdfdf;
+}
+
+.btn:active {
+	background-color: #afafaf;
+}
+
+.bnt-c {
+	-ms-grid-column: 1;
+	grid-column-start: 1;
+	-ms-grid-column-span: 2;
+	grid-column-end: 3;
+	color: red;
+	-webkit-transition: 0.3s ease;
+	transition: 0.3s ease;
+}
+
+.bnt-c:hover {
+	color: white;
+	background-color: rgb(255, 90, 90);
+}
+
+.bnt-c:active {
+	background-color: rgb(165, 0, 0);
+}
+
+.btn-equal {
+	-ms-grid-column: 3;
+	grid-column-start: 3;
+	-ms-grid-column-span: 2;
+	grid-column-end: 5;
+	color: white;
+	background-color: #68b319;
+	-webkit-transition: 0.3s ease;
+	transition: 0.3s ease;
+}
+
+.btn-equal:hover {
+	background-color: #599b13;
+}
+
+.btn-equal:active {
+	background-color: #42720f;
+}
+
+@media (max-width: 479.98px) {
+	.calculator {
+		width: 300px;
+		height: 400px;
+	}
+
+	body {
+		font-size: 32px;
+	}
+
+	#userInput {
+		font-size: 48px;
+		padding: 0 15px;
+	}
+}
