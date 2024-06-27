@@ -140,7 +140,7 @@ body button {
 	gap: 10px;
 }
 
-.buttons {
+.calculator__buttons {
 	height: 100%;
 	display: -ms-grid;
 	display: grid;
@@ -268,7 +268,7 @@ body button {
 	background-color: #afafaf;
 }
 
-.bnt-c {
+.btn-clear {
 	-ms-grid-column: 1;
 	grid-column-start: 1;
 	-ms-grid-column-span: 2;
@@ -278,12 +278,12 @@ body button {
 	transition: 0.3s ease;
 }
 
-.bnt-c:hover {
+.btn-clear:hover {
 	color: white;
 	background-color: rgb(255, 90, 90);
 }
 
-.bnt-c:active {
+.btn-clear:active {
 	background-color: rgb(165, 0, 0);
 }
 
