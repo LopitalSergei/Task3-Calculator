@@ -7,42 +7,62 @@
     <title>Calculator</title>
   </head>
   <body>
-    <div class="container">
+    <header class="calculator__header">
+      <div class="header-name">Calculator App</div>
+      <nav class="header-nav">
+        <a class="nav-link active-page" href="">Home</a>
+        <a class="nav-link" href="">Setting</a>
+      </nav>
+    </header>
+    <main>
       <article class="calculator">
-        <input type="text" id="userInput" placeholder="Input" />
-        <input
-          type="text"
-          id="display"
-          class="calculator__display"
-          placeholder="0"
-          disabled
-        />
-        <div class="calculator__buttons">
-          <button id="btn-clear" class="btn btn-clear" data-clear>C</button>
-          <button id="btn-delete" class="btn" data-backspace>Del</button>
-          <button id="btn-divide" class="btn" data-operator="÷">÷</button>
-          <button id="btn-7" class="btn" data-number="7">7</button>
-          <button id="btn-8" class="btn" data-number="8">8</button>
-          <button id="btn-9" class="btn" data-number="9">9</button>
-          <button id="btn-multiply" class="btn" data-operator="×">×</button>
-          <button id="btn-4" class="btn" data-number="4">4</button>
-          <button id="btn-5" class="btn" data-number="5">5</button>
-          <button id="btn-6" class="btn" data-number="6">6</button>
-          <button id="btn-minus" class="btn" data-operator="-">-</button>
-          <button id="btn-1" class="btn" data-number="1">1</button>
-          <button id="btn-2" class="btn" data-number="2">2</button>
-          <button id="btn-3" class="btn" data-number="3">3</button>
-          <button id="btn-plus" class="btn" data-operator="+">+</button>
-          <button id="btn-decimal" class="btn" data-decimal=".">.</button>
-          <button id="btn-0" class="btn" data-number="0">0</button>
-          <button id="btn-equal" class="btn btn-equal" data-equal>=</button>
+        <div class="calculator-block container">
+          <input
+            type="text"
+            id="display"
+            class="calculator__display"
+            placeholder="0"
+            disabled
+          />
+          <input
+            class="calculator__input"
+            type="text"
+            id="userInput"
+            placeholder="Input"
+            disabled
+          />
+          <div class="calculator__keypad">
+            <button id="btn-clear" class="btn btn-clear" data-clear>C</button>
+            <button id="btn-delete" class="btn" data-backspace>Del</button>
+            <button id="btn-divide" class="btn" data-operator="÷">÷</button>
+            <button id="btn-7" class="btn" data-number="7">7</button>
+            <button id="btn-8" class="btn" data-number="8">8</button>
+            <button id="btn-9" class="btn" data-number="9">9</button>
+            <button id="btn-multiply" class="btn" data-operator="×">×</button>
+            <button id="btn-4" class="btn" data-number="4">4</button>
+            <button id="btn-5" class="btn" data-number="5">5</button>
+            <button id="btn-6" class="btn" data-number="6">6</button>
+            <button id="btn-minus" class="btn" data-operator="-">-</button>
+            <button id="btn-1" class="btn" data-number="1">1</button>
+            <button id="btn-2" class="btn" data-number="2">2</button>
+            <button id="btn-3" class="btn" data-number="3">3</button>
+            <button id="btn-plus" class="btn" data-operator="+">+</button>
+            <button id="btn-decimal" class="btn" data-decimal=".">.</button>
+            <button id="btn-0" class="btn" data-number="0">0</button>
+            <button id="btn-equal" class="btn btn-equal" data-equal>=</button>
+          </div>
+        </div>
+        <div class="history-block container">
+          <h4>HISTORY</h4>
+          <div class="history-container container"></div>
         </div>
       </article>
+    </main>
+    <!-- <div class="container">
+      <article class="calculator"></article>
     </div>
-    <div class="right-side">
-      <h4>HISTORY</h4>
-      <div class="history-container"></div>
-    </div>
+    <div class="right-side"></div> -->
+
     <script src="script.js"></script>
   </body>
 </html>
