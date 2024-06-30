@@ -6,6 +6,7 @@
 // 5. Выбрать операцию "равно"
 
 // Убрать проблему с дробными числами res:  14.219999999999999
+// Нужно убрать заполнять очередь в calcResult()
 
 const calculatorEl = document.querySelector(".calculator");
 const input = calculatorEl.querySelector("#userInput");
@@ -99,10 +100,6 @@ class Calculator {
       return 0;
     }
     if (this.getLastInput().type === "number") {
-      // Нужно найти операцию
-      // После нужно найти левое и правое число
-      // Вызвать performOperation()
-
       let firstOperand;
       let operation;
       let secondOperand;
@@ -110,13 +107,7 @@ class Calculator {
       let operationIndex;
       let result;
       for (let i = 0; i < this.inputQueue.length; i++) {
-        //   console.log("firstOperand ", firstOperand);
-        //   console.log("operation ", operation);
-        //   console.log("secondOperand ", secondOperand);
-        //   console.log("firstOperation ", firstOperation);
-        //   console.log("operationIndex ", operationIndex);
         const element = this.inputQueue[i];
-        //   console.log("element ", element);
         if (element.type === "operator" && firstOperation) {
           firstOperation = false;
           firstOperand = this.inputQueue.slice(0, i);
@@ -138,7 +129,6 @@ class Calculator {
             this.operandToNumber(secondOperand)
           );
 
-          //  firstOperation = true;
           operation = element.value;
 
           firstOperand = [{ value: result, type: "number" }];
@@ -146,7 +136,7 @@ class Calculator {
         }
         console.log("------------------------");
       }
-      historyContainer.innerHTML += `<div onclick="getHistoryItem(${this.input.value})" class ="history-item">${this.input.value} / ${result}</div>`;
+      historyContainer.innerHTML += `<div onclick="getHistoryItem('${this.input.value}', '${result}')" class ="history-item">${this.input.value} / ${result}</div>`;
       this.display.value = result;
     } else {
       this.display.value = NaN;
@@ -195,24 +185,23 @@ class Calculator {
   getLastInput() {
     return this.inputQueue[this.inputQueue.length - 1];
   }
-
-  //   updateInput() {
-  //     this.input.value = this.getInputValues().join(" ");
-  //   }
-
-  //   getInputValues() {
-  //     return this.inputQueue.map((element) => {
-  //       element.value;
-  //     });
-  //   }
-
-  //   updateDisplay(value) {
-  //     this.display.value = value;
-  //   }
 }
 
-function getHistoryItem(value) {
-  console.log("click", value);
+function getHistoryItem(value, result) {
+  calculator.input.value = value;
+  calculator.display.value = result;
+  calculator.inputQueue = [];
+
+  for (let i = 0; i < value.length; i++) {
+    const symbol = value.charAt(i);
+    if (/^\d+$/.test(symbol)) {
+      calculator.inputQueue.push({ value: symbol, type: "number" });
+    } else if (symbol === ".") {
+      calculator.inputQueue.push({ value: symbol, type: "decimal" });
+    } else {
+      calculator.inputQueue.push({ value: symbol, type: "operator" });
+    }
+  }
 }
 
 const calculator = new Calculator(input, display);
@@ -244,19 +233,3 @@ numberBtns.forEach((btn) => {
     calculator.insertNumber(btn.getAttribute("data-number"));
   });
 });
-
-// for (const key of keys) {
-//   const value = key.textContent;
-//   const id = key.id;
-
-//   key.addEventListener("click", () => {
-//     if (id == "btn-equal") {
-//     } else if (id === "btn-delete") {
-//       input.value = input.value.slice(0, input.value.length - 1);
-//     } else if (id === "btn-clear") {
-//       input.value = "";
-//     } else {
-//       input.value += value;
-//     }
-//   });
-// }
