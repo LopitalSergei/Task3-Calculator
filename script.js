@@ -8,6 +8,12 @@
 // Убрать проблему с дробными числами res:  14.219999999999999
 // Нужно убрать заполнять очередь в calcResult()
 
+// Нужно сохранять историю в локал сторедж и сделать кнопку очищения
+// Сделать кнопку смены знака
+// Сделать расстановку приоритета знаков
+
+let themeStyle = localStorage.getItem("themeStyle");
+
 const calculatorEl = document.querySelector(".calculator");
 const input = calculatorEl.querySelector("#userInput");
 const display = calculatorEl.querySelector("#display");
@@ -136,7 +142,9 @@ class Calculator {
         }
         console.log("------------------------");
       }
-      historyContainer.innerHTML += `<div onclick="getHistoryItem('${this.input.value}', '${result}')" class ="history-item">${this.input.value} / ${result}</div>`;
+      historyContainer.innerHTML =
+        `<div onclick="getHistoryItem('${this.input.value}', '${result}')" class ="history-item">${this.input.value} / ${result}</div>` +
+        historyContainer.innerHTML;
       this.display.value = result;
     } else {
       this.display.value = NaN;
@@ -202,6 +210,22 @@ function getHistoryItem(value, result) {
       calculator.inputQueue.push({ value: symbol, type: "operator" });
     }
   }
+}
+
+function enableLightTheme() {
+  document.body.classList.remove("dark-theme");
+  localStorage.setItem("themeStyle", "light");
+}
+
+function enableDarkTheme() {
+  document.body.classList.add("dark-theme");
+  localStorage.setItem("themeStyle", "dark");
+}
+
+// APP
+
+if (themeStyle === "dark") {
+  enableDarkTheme();
 }
 
 const calculator = new Calculator(input, display);

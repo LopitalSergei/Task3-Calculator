@@ -99,6 +99,9 @@ h6 {
 	--color-white-75: rgba(255, 255, 255, 0.75);
 	--color-black-100: rgba(0, 0, 0, 1);
 
+	--color-bg-switch-theme: #171717;
+	--color-switch-theme: #FFF;
+
 
 	--font: "Open Sans", sans-serif;
 
@@ -130,6 +133,9 @@ h6 {
 	--color-white-100: rgba(255, 255, 255, 1);
 	--color-white-75: rgba(255, 255, 255, 0.65);
 	--color-black-100: rgba(0, 0, 0, 1);
+
+	--color-bg-switch-theme: #FFF;
+	--color-switch-theme: #727272;
 }
 
 body {
@@ -400,6 +406,49 @@ body {
 .history-item:hover {
 	font-weight: bold;
 }
+
+
+.settings-header {
+	color: var(--color-text);
+	font-size: var(--xl);
+	padding: var(--md);
+}
+
+.settings label {
+	padding: var(--xs2) var(--md);
+	color: var(--color-text);
+	font-size: var(--sm);
+	display: block;
+}
+
+#theme-select {
+	width: 200px;
+	margin: var(--xs2) var(--md);
+	background-color: var(--color-switch-theme);
+	color: var(--color-bg-switch-theme);
+	border: 1px solid var(--color-bg-switch-theme);
+	font-size: var(--sm);
+	font-family: inherit;
+	padding: var(--xs3) var(--xs2);
+	display: block;
+}
+
+#clear-history {
+	width: 200px;
+	margin: var(--xs2) var(--md);
+	background-color: var(--color-switch-theme);
+	color: var(--color-bg-switch-theme);
+	border: 1px solid var(--color-bg-switch-theme);
+	font-size: var(--sm);
+	font-family: inherit;
+	padding: var(--xs3) var(--xs2);
+	display: block;
+}
+
+#clear-history:hover {
+	text-decoration: underline;
+}
+
 
 @media (max-width: 600px) {
 	.calculator__header {
