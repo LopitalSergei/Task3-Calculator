@@ -1,5 +1,7 @@
 let themeStyle = localStorage.getItem("themeStyle");
+const STORAGE_NAME = "historyStorage";
 
+const clearAllStory = document.querySelector("#clear-history");
 const themeSelect = document.querySelector("#theme-select");
 themeSelect.onchange = onChangeTheme;
 
@@ -30,3 +32,8 @@ if (themeStyle === "dark") {
   enableDarkTheme();
   themeSelect.value = themeStyle;
 }
+
+clearAllStory.addEventListener("click", () => {
+  localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
+  alert("История очищена!");
+});

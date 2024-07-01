@@ -12,6 +12,11 @@
 // Сделать кнопку смены знака
 // Сделать расстановку приоритета знаков
 
+const STORAGE_NAME = "historyStorage";
+const historyElementsInLocalStorage = JSON.parse(
+  localStorage.getItem(STORAGE_NAME)
+);
+
 let themeStyle = localStorage.getItem("themeStyle");
 
 const calculatorEl = document.querySelector(".calculator");
@@ -138,14 +143,23 @@ class Calculator {
           operation = element.value;
 
           firstOperand = [{ value: result, type: "number" }];
-          console.log("res: ", result);
+          //  console.log("res: ", result);
         }
-        console.log("------------------------");
+        //   console.log("------------------------");
       }
-      historyContainer.innerHTML =
+      const historyElements =
         `<div onclick="getHistoryItem('${this.input.value}', '${result}')" class ="history-item">${this.input.value} / ${result}</div>` +
         historyContainer.innerHTML;
+      historyContainer.innerHTML = historyElements;
       this.display.value = result;
+      historyElementsInLocalStorage.push({
+        value: this.input.value,
+        result: result,
+      });
+      localStorage.setItem(
+        STORAGE_NAME,
+        JSON.stringify(historyElementsInLocalStorage)
+      );
     } else {
       this.display.value = NaN;
     }
@@ -160,9 +174,9 @@ class Calculator {
   }
 
   performOperation(firstOperand, operation, secondOperand) {
-    console.log("**********************");
-    console.log("first ", firstOperand);
-    console.log("second ", secondOperand);
+    //  console.log("**********************");
+    //  console.log("first ", firstOperand);
+    //  console.log("second ", secondOperand);
     firstOperand = parseFloat(firstOperand);
     secondOperand = parseFloat(secondOperand);
 
@@ -170,8 +184,8 @@ class Calculator {
       return;
     }
 
-    console.log("oper", operation);
-    console.log("********************");
+    //  console.log("oper", operation);
+    //  console.log("********************");
     switch (operation) {
       case "×":
         return firstOperand * secondOperand;
@@ -226,6 +240,17 @@ function enableDarkTheme() {
 
 if (themeStyle === "dark") {
   enableDarkTheme();
+}
+
+if (historyElementsInLocalStorage) {
+  for (let i = 0; i < historyElementsInLocalStorage.length; i++) {
+    const element = historyElementsInLocalStorage[i];
+    historyContainer.innerHTML =
+      `<div onclick="getHistoryItem('${element.value}', '${element.result}')" class ="history-item">${element.value} / ${element.result}</div>` +
+      historyContainer.innerHTML;
+  }
+} else {
+  localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
 }
 
 const calculator = new Calculator(input, display);
