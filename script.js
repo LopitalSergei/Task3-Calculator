@@ -1,35 +1,20 @@
-// 1. Ввести число
-// 1.1 Нажать необходимое количество цифр
-// 2. Выбрать операцию
-// 3. Ввести число
-// 4. При необходимости пункт 2 и 3
-// 5. Выбрать операцию "равно"
-
-// Убрать проблему с дробными числами res:  14.219999999999999
-// Нужно убрать заполнять очередь в calcResult()
-
-// Нужно сохранять историю в локал сторедж и сделать кнопку очищения
-// Сделать кнопку смены знака
-// Сделать расстановку приоритета знаков
+let themeStyle = localStorage.getItem("themeStyle");
 
 const STORAGE_NAME = "historyStorage";
 const historyElementsInLocalStorage = JSON.parse(
   localStorage.getItem(STORAGE_NAME)
 );
 
-let themeStyle = localStorage.getItem("themeStyle");
-
 const calculatorEl = document.querySelector(".calculator");
 const input = calculatorEl.querySelector("#userInput");
 const display = calculatorEl.querySelector("#display");
-// const keys = calculatorEl.querySelectorAll(".btn");
-
 const allClearBtn = calculatorEl.querySelector("[data-clear]");
 const backspaceBtn = calculatorEl.querySelector("[data-backspace]");
 const decimalBtn = calculatorEl.querySelector("[data-decimal]");
 const equalBtn = calculatorEl.querySelector("[data-equal]");
 const operationBtns = calculatorEl.querySelectorAll("[data-operator]");
 const numberBtns = calculatorEl.querySelectorAll("[data-number]");
+
 const historyContainer = document.querySelector(".history-container");
 
 class Calculator {
@@ -43,7 +28,7 @@ class Calculator {
   clearDisplay() {
     this.inputQueue = [];
     this.input.value = "";
-    //  console.log(this.inputQueue);
+    this.inputDecimal = false;
   }
 
   backspace() {
@@ -55,7 +40,6 @@ class Calculator {
     }
     this.input.value = this.input.value.slice(0, input.value.length - 1);
     this.inputQueue.pop();
-    //  console.log(this.inputQueue);
   }
 
   insertNumber(value) {
@@ -73,7 +57,6 @@ class Calculator {
       this.inputQueue.push({ value: value, type: "number" });
       this.input.value += value;
     }
-    //  console.log(this.inputQueue);
   }
 
   insertOperator(operator) {
@@ -95,7 +78,6 @@ class Calculator {
 
       this.input.value += operator;
     }
-    //  console.log(this.inputQueue);
   }
 
   insertDecimal() {
@@ -143,9 +125,7 @@ class Calculator {
           operation = element.value;
 
           firstOperand = [{ value: result, type: "number" }];
-          //  console.log("res: ", result);
         }
-        //   console.log("------------------------");
       }
       const historyElements =
         `<div onclick="getHistoryItem('${this.input.value}', '${result}')" class ="history-item">${this.input.value} / ${result}</div>` +
@@ -174,18 +154,12 @@ class Calculator {
   }
 
   performOperation(firstOperand, operation, secondOperand) {
-    //  console.log("**********************");
-    //  console.log("first ", firstOperand);
-    //  console.log("second ", secondOperand);
     firstOperand = parseFloat(firstOperand);
     secondOperand = parseFloat(secondOperand);
 
     if (Number.isNaN(firstOperand) || Number.isNaN(secondOperand)) {
       return;
     }
-
-    //  console.log("oper", operation);
-    //  console.log("********************");
     switch (operation) {
       case "×":
         return firstOperand * secondOperand;
@@ -194,10 +168,10 @@ class Calculator {
         return firstOperand / secondOperand;
         break;
       case "-":
-        return firstOperand - secondOperand;
+        return (firstOperand * 100 - secondOperand * 100) / 100;
         break;
       case "+":
-        return firstOperand + secondOperand;
+        return (firstOperand * 100 + secondOperand * 100) / 100;
         break;
       default:
         return;

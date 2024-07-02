@@ -7,7 +7,6 @@ themeSelect.onchange = onChangeTheme;
 
 function onChangeTheme() {
   const value = themeSelect.value;
-  const text = themeSelect.options[themeSelect.selectedIndex].text;
 
   if (value === "dark") {
     enableDarkTheme();

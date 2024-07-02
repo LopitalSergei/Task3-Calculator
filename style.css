@@ -283,41 +283,57 @@ body {
 }
 
 .buttons>*:nth-child(13) {
+	grid-row: 7;
+	grid-column: 1;
 	-ms-grid-row: 7;
 	-ms-grid-column: 1;
 }
 
 .buttons>*:nth-child(14) {
+	grid-row: 7;
+	grid-column: 3;
 	-ms-grid-row: 7;
 	-ms-grid-column: 3;
 }
 
 .buttons>*:nth-child(15) {
+	grid-row: 7;
+	grid-column: 5;
 	-ms-grid-row: 7;
 	-ms-grid-column: 5;
 }
 
 .buttons>*:nth-child(16) {
+	grid-row: 7;
+	grid-column: 7;
 	-ms-grid-row: 7;
 	-ms-grid-column: 7;
 }
 
 .buttons>*:nth-child(17) {
+	grid-row: 9;
+	grid-column: 1;
 	-ms-grid-row: 9;
 	-ms-grid-column: 1;
 }
 
 .buttons>*:nth-child(18) {
+	grid-row: 9;
+	grid-column: 3;
 	-ms-grid-row: 9;
 	-ms-grid-column: 3;
 }
 
 .buttons>*:nth-child(19) {
+	grid-row: 9;
+	grid-column: 5;
 	-ms-grid-row: 9;
 	-ms-grid-column: 5;
 }
 
 .buttons>*:nth-child(20) {
+	grid-row: 9;
+	grid-column: 7;
 	-ms-grid-row: 9;
 	-ms-grid-column: 7;
 }
