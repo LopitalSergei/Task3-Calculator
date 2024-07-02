@@ -1,4 +1,4 @@
-#Caclulator
+# Caclulator
 
 This is simple Calculator App [View the app](https://task3-calculator-seven.vercel.app/)
 
