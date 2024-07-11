@@ -99,6 +99,18 @@ h6 {
 	--color-white-75: rgba(255, 255, 255, 0.75);
 	--color-black-100: rgba(0, 0, 0, 1);
 
+	--color-btn-equal: #68b319;
+	--color-btn-equal-hover: #599b13;
+	--color-btn-equal-active: #42720f;
+
+	--color-btn-clear: red;
+	--color-btn-clear-hover: rgb(255, 90, 90);
+	--color-btn-clear-active: rgb(165, 0, 0);
+
+	--color-btn: #000000;
+	--color-btn-hover: #dfdfdf;
+	--color-btn-active: #afafaf;
+	--color-white: #FFFFFF;
 	--color-bg-switch-theme: #171717;
 	--color-switch-theme: #FFF;
 
@@ -370,37 +382,38 @@ body {
 
 .btn {
 	font-size: var(--xl);
-	border: 1px solid #000;
+	border: 1px solid var(--color-btn);
 	border-radius: 10px;
 	background-color: var(--color-bg-btn);
 	color: var(--color-text);
 }
 
 .btn:hover {
-	background-color: #dfdfdf;
+	background-color: var(--color-btn-hover);
 }
 
 .btn:active {
-	background-color: #afafaf;
+	background-color: var(--color-btn-active);
 }
 
 .btn-clear {
-	/* -ms-grid-column: 1;
+	grid-column: 1;
+	-ms-grid-column: 1;
 	grid-column-start: 1;
 	-ms-grid-column-span: 2;
-	grid-column-end: 2; */
-	color: red;
+	grid-column-end: 2;
+	color: var(--color-btn-clear);
 	-webkit-transition: 0.3s ease;
 	transition: 0.3s ease;
 }
 
 .btn-clear:hover {
-	color: white;
-	background-color: rgb(255, 90, 90);
+	color: var(--color-white);
+	background-color: var(--color-btn-clear-hover);
 }
 
 .btn-clear:active {
-	background-color: rgb(165, 0, 0);
+	background-color: var(--color-btn-clear-active);
 }
 
 .btn-equal {
@@ -409,18 +422,18 @@ body {
 	grid-column-start: 3;
 	-ms-grid-column-span: 2;
 	grid-column-end: 5;
-	color: white;
-	background-color: #68b319;
+	color: var(--color-white);
+	background-color: var(--color-btn-equal);
 	-webkit-transition: 0.3s ease;
 	transition: 0.3s ease;
 }
 
 .btn-equal:hover {
-	background-color: #599b13;
+	background-color: var(--color-btn-equal-hover);
 }
 
 .btn-equal:active {
-	background-color: #42720f;
+	background-color: var(--color-btn-equal-active);
 }
 
 .history-block {
