@@ -1,4 +1,6 @@
-let themeStyle = localStorage.getItem("themeStyle");
+const themeStyle = localStorage.getItem("themeStyle");
+
+// const theme = {value: ''}
 
 const STORAGE_NAME = "historyStorage";
 const historyElementsInLocalStorage = JSON.parse(
@@ -89,44 +91,15 @@ class Calculator {
   }
 
   calcResult() {
+    console.log(this.inputQueue);
     if (this.inputQueue.length === 0) {
       return 0;
     }
     if (this.getLastInput().type === "number") {
-      let firstOperand;
-      let operation;
-      let secondOperand;
-      let firstOperation = true;
-      let operationIndex;
       let result;
-      for (let i = 0; i < this.inputQueue.length; i++) {
-        const element = this.inputQueue[i];
-        if (element.type === "operator" && firstOperation) {
-          firstOperation = false;
-          firstOperand = this.inputQueue.slice(0, i);
-          operation = element.value;
-          operationIndex = i;
-        } else if (
-          element.type === "operator" ||
-          i === this.inputQueue.length - 1
-        ) {
-          if (i === this.inputQueue.length - 1) {
-            secondOperand = this.inputQueue.slice(operationIndex + 1, i + 1);
-          } else {
-            secondOperand = this.inputQueue.slice(operationIndex + 1, i);
-            operationIndex = i;
-          }
-          result = this.performOperation(
-            this.operandToNumber(firstOperand),
-            operation,
-            this.operandToNumber(secondOperand)
-          );
 
-          operation = element.value;
+      result = this.calculate(this.tokenize(this.input.value));
 
-          firstOperand = [{ value: result, type: "number" }];
-        }
-      }
       const historyElements =
         `<div onclick="getHistoryItem('${this.input.value}', '${result}')" class ="history-item">${this.input.value} / ${result}</div>` +
         historyContainer.innerHTML;
@@ -145,43 +118,69 @@ class Calculator {
     }
   }
 
-  operandToNumber(operand) {
-    try {
-      return operand.map((number) => number.value).join("");
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  performOperation(firstOperand, operation, secondOperand) {
-    firstOperand = parseFloat(firstOperand);
-    secondOperand = parseFloat(secondOperand);
-
-    if (Number.isNaN(firstOperand) || Number.isNaN(secondOperand)) {
-      return;
-    }
-    switch (operation) {
-      case "×":
-        return firstOperand * secondOperand;
-        break;
-      case "÷":
-        return firstOperand / secondOperand;
-        break;
-      case "-":
-        return (firstOperand * 100 - secondOperand * 100) / 100;
-        break;
-      case "+":
-        return (firstOperand * 100 + secondOperand * 100) / 100;
-        break;
-      default:
-        return;
-    }
-  }
-
   getLastInput() {
     return this.inputQueue[this.inputQueue.length - 1];
   }
+
+  tokenize(str) {
+    const operationQueue = [];
+    let token = "";
+    for (const character of str) {
+      if ("×÷+-".includes(character)) {
+        if (token === "" && character === "-") {
+          token = "-";
+        } else {
+          operationQueue.push(parseFloat(token), character);
+          token = "";
+        }
+      } else {
+        token += character;
+      }
+    }
+    if (token !== "") {
+      operationQueue.push(parseFloat(token));
+    }
+    return operationQueue;
+  }
+
+  calculate(tokens) {
+    const operatorPrecedence = [
+      {
+        "×": (a, b) => (a * 100 * b * 100) / 10000,
+        "÷": (a, b) => (((a * 100) / b) * 100) / 10000,
+      },
+      {
+        "+": (a, b) => (a * 100 + b * 100) / 100,
+        "-": (a, b) => (a * 100 - b * 100) / 100,
+      },
+    ];
+    let operator;
+    for (const operators of operatorPrecedence) {
+      const newTokens = [];
+      for (const token of tokens) {
+        if (token in operators) {
+          operator = operators[token];
+        } else if (operator) {
+          newTokens[newTokens.length - 1] = operator(
+            newTokens[newTokens.length - 1],
+            token
+          );
+          operator = null;
+        } else {
+          newTokens.push(token);
+        }
+      }
+      tokens = newTokens;
+    }
+    if (tokens.length > 1) {
+      return tokens;
+    } else {
+      return tokens[0];
+    }
+  }
 }
+
+const checkingForANumber = /^\d+$/;
 
 function getHistoryItem(value, result) {
   calculator.input.value = value;
@@ -190,7 +189,7 @@ function getHistoryItem(value, result) {
 
   for (let i = 0; i < value.length; i++) {
     const symbol = value.charAt(i);
-    if (/^\d+$/.test(symbol)) {
+    if (checkingForANumber.test(symbol)) {
       calculator.inputQueue.push({ value: symbol, type: "number" });
     } else if (symbol === ".") {
       calculator.inputQueue.push({ value: symbol, type: "decimal" });
