@@ -10,6 +10,7 @@ export const input = calculatorEl.querySelector("#userInput");
 export const display = calculatorEl.querySelector("#display");
 export const allClearBtn = calculatorEl.querySelector("[data-clear]");
 export const backspaceBtn = calculatorEl.querySelector("[data-backspace]");
+export const signSwitchBtn = calculatorEl.querySelector("[data-change]");
 export const decimalBtn = calculatorEl.querySelector("[data-decimal]");
 export const equalBtn = calculatorEl.querySelector("[data-equal]");
 export const operationBtns = calculatorEl.querySelectorAll("[data-operator]");

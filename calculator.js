@@ -10,12 +10,17 @@ export class Calculator {
     this.display = display;
     this.inputQueue = [];
     this.inputDecimal = false;
+    this.equalsFlag = false;
+    this.operatorFlag = false;
   }
 
   clearDisplay() {
     this.inputQueue = [];
     this.input.value = "";
     this.inputDecimal = false;
+    this.display.value = "";
+    this.equalsFlag = false;
+    this.operatorFlag = false;
   }
 
   backspace() {
@@ -25,11 +30,27 @@ export class Calculator {
     ) {
       this.inputDecimal = false;
     }
-    this.input.value = this.input.value.slice(0, input.value.length - 1);
+    this.input.value = this.input.value.slice(0, this.input.value.length - 1);
     this.inputQueue.pop();
   }
 
+  switchSign() {
+    if (!this.operatorFlag && this.inputQueue[0].type === "number") {
+      this.inputQueue.unshift({ value: "-", type: "operator" });
+      this.input.value = "-" + this.input.value;
+    } else if (!this.operatorFlag && this.inputQueue[0].type === "operator") {
+      this.inputQueue.shift();
+      this.input.value = this.input.value.slice(1);
+    }
+  }
+
   insertNumber(value) {
+    if (this.equalsFlag) {
+      console.log("flag");
+      this.inputQueue = [];
+      this.input.value = "";
+      this.equalsFlag = false;
+    }
     if (
       this.inputQueue.length === 1 &&
       this.inputQueue[this.inputQueue.length - 1].type === "operator"
@@ -39,14 +60,18 @@ export class Calculator {
         type: "number",
       };
       this.input.value =
-        this.input.value.slice(0, input.value.length - 1) + value;
+        this.input.value.slice(0, this.input.value.length - 1) + value;
     } else {
       this.inputQueue.push({ value: value, type: "number" });
       this.input.value += value;
+      console.log(this.inputQueue);
     }
   }
 
   insertOperator(operator) {
+    this.operatorFlag = true;
+    this.equalsFlag = false;
+    console.log(this.inputQueue);
     this.inputDecimal = false;
     if (this.inputQueue.length === 0) {
       this.inputQueue.push({ value: operator, type: "operator" });
@@ -59,7 +84,7 @@ export class Calculator {
         type: "operator",
       };
       this.input.value =
-        this.input.value.slice(0, input.value.length - 1) + operator;
+        this.input.value.slice(0, this.input.value.length - 1) + operator;
     } else {
       this.inputQueue.push({ value: operator, type: "operator" });
 
@@ -81,9 +106,8 @@ export class Calculator {
       return 0;
     }
     if (this.getLastInput().type === "number") {
-      let result;
-
-      result = this.calculate(this.tokenize(this.input.value));
+      const result =
+        parseInt(this.calculate(this.tokenize(this.input.value)) * 1000) / 1000;
 
       const historyElements =
         `<div onclick="getHistoryItem('${this.input.value}', '${result}')" class ="history-item">${this.input.value} / ${result}</div>` +
@@ -98,6 +122,11 @@ export class Calculator {
         STORAGE_NAME,
         JSON.stringify(historyElementsInLocalStorage)
       );
+      this.input.value = result;
+      this.inputQueue = [{ value: `${result}`, type: "number" }];
+      this.equalsFlag = true;
+      this.inputDecimal = false;
+      this.operatorFlag = false;
     } else {
       this.display.value = NaN;
     }

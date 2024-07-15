@@ -7,6 +7,7 @@ import {
   input,
   display,
   allClearBtn,
+  signSwitchBtn,
   backspaceBtn,
   decimalBtn,
   equalBtn,
@@ -68,6 +69,10 @@ allClearBtn.addEventListener("click", () => {
 
 backspaceBtn.addEventListener("click", () => {
   calculator.backspace();
+});
+
+signSwitchBtn.addEventListener("click", () => {
+  calculator.switchSign();
 });
 
 decimalBtn.addEventListener("click", () => {
